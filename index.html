@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #050014;
+            background-image: radial-gradient(circle at center, #1a0033 0%, #050014 100%);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Estrellas en el fondo */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png');
+            animation: twinkle 10s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+
+        /* Contenedores */
+        #pantalla-1, #pantalla-2 {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #pantalla-2 {
+            opacity: 0;
+            pointer-events: none;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 5vh;
+        }
+
+        .titulo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #ff4d85;
+            text-shadow: 0 0 10px #ff4d85, 0 0 20px #ff4d85;
+            margin-bottom: 40px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Corazón de Neón */
+        .corazon-contenedor {
+            position: relative;
+            cursor: pointer;
+            animation: latido 1.5s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .corazon-contenedor svg {
+            width: 150px;
+            height: 150px;
+            filter: drop-shadow(0 0 25px #ff0055);
+            transition: transform 0.3s;
+        }
+
+        .corazon-contenedor:hover svg {
+            transform: scale(1.1);
+        }
+
+        .texto-mirame {
+            position: absolute;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+            text-shadow: 0 0 5px #000;
+            pointer-events: none;
+            top: 35%;
+        }
+
+        @keyframes latido {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Galería Polaroid */
+        .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            max-width: 1100px;
+            margin-bottom: 50px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 25px 15px;
+            border-radius: 5px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px) rotate(-3deg);
+            animation: aparecer 0.8s forwards;
+            cursor: pointer;
+        }
+
+        .polaroid:nth-child(even) {
+            transform: translateY(50px) rotate(4deg);
+            animation-delay: 0.3s;
+        }
+        
+        .polaroid:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes aparecer {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(var(--rotacion, -3deg));
+            }
+        }
+
+        .polaroid:nth-child(odd) { --rotacion: -3deg; }
+        .polaroid:nth-child(even) { --rotacion: 4deg; }
+
+        .polaroid:hover {
+            transform: scale(1.08) rotate(0deg) !important;
+            box-shadow: 0 15px 35px rgba(255, 77, 133, 0.6);
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 260px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        .caption {
+            color: #333;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* Ocultar scrollbar pero permitir scroll */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff4d85;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <!-- PANTALLA 1: Inicio con el corazón -->
+    <div id="pantalla-1">
+        <h1 class="titulo">Para ti...</h1>
+        <div class="corazon-contenedor" onclick="mostrarGaleria()">
+            <!-- SVG de un corazón -->
+            <svg viewBox="0 0 32 29.6">
+                <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+                c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" fill="#ff0055"/>
+            </svg>
+            <span class="texto-mirame">¡MÍRAME!</span>
+        </div>
+    </div>
+
+    <!-- PANTALLA 2: Galería de fotos (oculta al inicio) -->
+    <div id="pantalla-2">
+        <h1 class="titulo">Mi universo entero ✨</h1>
+        <div class="galeria">
+            <div class="polaroid">
+                <img src="1002002524.jpg" alt="Foto 1">
+                <div class="caption">Tú me encantas</div>
+            </div>
+            <div class="polaroid">
+                <img src="1002002523.jpg" alt="Foto 2">
+                <div class="caption">Siempre tan linda</div>
+            </div>
+            <div class="polaroid">
+                <img src="1002002519.jpg" alt="Foto 3">
+                <div class="caption">Mi chica favorita</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarGaleria() {
+            const pantalla1 = document.getElementById('pantalla-1');
+            const pantalla2 = document.getElementById('pantalla-2');
+
+            // Efecto de transición
+            pantalla1.style.opacity = '0';
+            
+            setTimeout(() => {
+                pantalla1.style.display = 'none';
+                pantalla2.style.pointerEvents = 'auto';
+                pantalla2.style.opacity = '1';
+                // Permitir scroll si las fotos no caben en la pantalla
+                document.body.style.overflow = 'auto';
+                document.documentElement.style.overflow = 'auto';
+            }, 1000); // Espera a que termine el fade out del corazón
+        }
+    </script>
+</body>
+</html>
